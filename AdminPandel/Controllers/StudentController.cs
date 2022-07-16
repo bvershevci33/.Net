@@ -25,21 +25,9 @@ namespace AdminPandel.Controllers
         public IActionResult Index()
         {
             var students = Context.Students
-                .Include(x => x.Profesor).AsNoTracking()
-                .ToList();
-
-            var result = Context.Database.ExecuteSqlRaw("Select s.*, p.Emri from Students s inner join profesors p on p.id= s.profesorId");
-            var studentRaw = Context.Students.FromSqlRaw(" Select *  from Students where id={0}", 7).ToList();
-            var studentRaw1 = Context.Students.FromSqlInterpolated($" Select *  from Students where id={7}").ToList();
-
-
-            var param = new SqlParameter("@FirstName", "Maxi");
-
-
-            var studentsSp = Context.Students.FromSqlRaw("GetStudents @FirstName", param).ToList();
-
-            var resultSp = Context.Database.ExecuteSqlRaw("Exec GetStudents @FirstName", param);
-
+                .Include(x => x.Profesor)
+                .AsNoTracking()
+                .ToList();  
 
             return View(students);
         }
@@ -48,7 +36,7 @@ namespace AdminPandel.Controllers
         {
 
             var students = Context.Students
-              .Include(nameof(Profesor)) // "Profesor"
+              .Include(nameof(Profesor)) // "Profesor" // Inner join 
               .Select(x => new ProfStudentName() { ProfesorName = x.Profesor.FirstName, StudentName = x.FirstName })
               .ToList();
 
@@ -87,14 +75,14 @@ namespace AdminPandel.Controllers
                 if (std.FirstName.Substring(0, 1) == "B")
                 {
                     ModelState.AddModelError("FirstName", "Emri i dhene nuk eshte ne rregull.");
-
-                    studentVm = new StudentVm();
+                    
                     profesors = Context.Profesors.ToList();
 
                     std.Profesors = new SelectList(profesors, "Id", "FirstName");
                     return View(std);
                 }
 
+                // Konvertimi i file ne byte[]
                 byte[] byteImg = null;
                 using (var stream = photo.OpenReadStream())
                 {
@@ -105,15 +93,6 @@ namespace AdminPandel.Controllers
                     }
                 }
 
-
-
-
-                // Course course = new Course() { CourseName = ".Net 6" };
-
-                // std.Profesor = new Profesor() { FirstName = "Dritan", LastName = "Krasniqi", PagaNeto = 234, CourseId=3};
-
-                //var getProf = Context.Profesors.FirstOrDefault(x=> x.Id == 5);
-
                 Student student = new Student();
 
                 student.FirstName = std.FirstName;
@@ -122,16 +101,10 @@ namespace AdminPandel.Controllers
                 student.Age = std.Age;
                 student.StatusiStudentit = std.StatusiStudentit;
                 student.ProfesorId = std.ProfesorId;
+                // Ruajtja e file byte[] ne db
                 student.Photo = byteImg;
 
-                //var profersor = Context.Profesors.FirstOrDefault(x => x.Id == std.ProfesorId);
-                //student.Profesor= profersor ;
-
-                //student.Profesor.CourseId = std.CourseId;
-
-
                 Context.Students.Add(student);
-
                 Context.SaveChanges();
 
                 var stutdents = Context.Students.ToList();
@@ -148,13 +121,15 @@ namespace AdminPandel.Controllers
 
         public IActionResult Details(int id)
         {
-            if (id != null || id != 0)
+            if (id != 0)
             {
                 var getStudentById = Context.Students.Where(x => x.Id == id).FirstOrDefault();
 
+                //Convert byte[] to base64
                 string base64Format = "data:image/jpg;base64";
                 string base64ImgConverted = Convert.ToBase64String(getStudentById.Photo);
 
+                // Construct base64 string for html img tag src
                 string finalBase64Img = $"{base64Format}, {base64ImgConverted}";
 
                 var studentVm = new StudentVm();
@@ -165,14 +140,10 @@ namespace AdminPandel.Controllers
                 studentVm.StatusiStudentit = getStudentById.StatusiStudentit;
                 studentVm.Basae64Img = finalBase64Img;
 
-
-
                 return View(studentVm);
-
             }
 
             var stutdents = Context.Students.ToList();
-
             return RedirectToAction("Index", stutdents);
         }
 
@@ -180,17 +151,13 @@ namespace AdminPandel.Controllers
         [HttpGet()]
         public IActionResult Edit(int id)
         {
-            if (id != null || id != 0)
-            {
-
+            if (id != 0)
+            {                
                 var getStudentById = Context.Students.Where(x => x.Id == id).FirstOrDefault();
                 return View(getStudentById);
-
             }
             var stutdents = Context.Students.ToList();
-
             return RedirectToAction("Index", stutdents);
-
         }
 
         [HttpPost()]
@@ -221,10 +188,8 @@ namespace AdminPandel.Controllers
 
         public IActionResult Delete(int id)
         {
-
-            if (id != null || id != 0)
+            if (id != 0)
             {
-
                 var getStudentById = Context.Students.Where(x => x.Id == id).FirstOrDefault();
 
                 Context.Students.Remove(getStudentById);
@@ -233,13 +198,28 @@ namespace AdminPandel.Controllers
                 var stutdents = Context.Students.ToList();
 
                 return View("Index", stutdents);
-
             }
 
             var stds = Context.Students.ToList();
 
             return RedirectToAction("Index", stds);
         }
+
+        #region Koncepte Shtese
+        public IEnumerable<Student> LinqExampe()
+        {
+            var sqlRaw1 = Context.Database.ExecuteSqlRaw("Select s.*, p.Emri from Students s inner join profesors p on p.id= s.profesorId");
+            var sqlRaw2 = Context.Students.FromSqlRaw(" Select *  from Students where id={0}", 7).ToList();
+            var sqlRaw3 = Context.Students.FromSqlInterpolated($" Select *  from Students where id={7}").ToList();
+
+            // Execute SP
+            var param = new SqlParameter("@FirstName", "Maxi");
+            var studentsSp = Context.Students.FromSqlRaw("GetStudents @FirstName", param).ToList();
+
+            return studentsSp;
+
+        }
+        #endregion
     }
 }
 

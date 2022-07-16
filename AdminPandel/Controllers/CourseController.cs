@@ -20,10 +20,18 @@ namespace AdminPandel.Controllers
             ViewData["CoursesCount"] = courseCount;
             var course = Context.Courses
                 .OrderBy(x => x.CourseName)
-                //.OrderByDescending(x => x.CourseName)
-                .Skip(1)
-                .Take(10)
                 .ToList();
+            return View(course);
+        }
+
+        public IActionResult FilterCourses(int skip, int take)
+        {
+            var course = Context.Courses
+               .OrderBy(x => x.CourseName)
+               //.OrderByDescending(x => x.CourseName)
+               .Skip(skip)
+               .Take(take)
+               .ToList();
             return View(course);
         }
 
@@ -43,8 +51,6 @@ namespace AdminPandel.Controllers
                 Context.SaveChanges();
 
                 return RedirectToAction("Index");
-
-
             }
 
             return View(course);
@@ -57,7 +63,6 @@ namespace AdminPandel.Controllers
             {
                 var getCourseById = Context.Courses.FirstOrDefault(x => x.CourseId == courseId);
                 return View(getCourseById);
-
             }
            
             return View("Index");
@@ -77,7 +82,6 @@ namespace AdminPandel.Controllers
                 Context.SaveChanges();
 
                 return RedirectToAction("Index");
-
 
             }
             return View(course);
@@ -109,7 +113,6 @@ namespace AdminPandel.Controllers
                     Context.Courses.Remove(getCourseById);
                     Context.SaveChanges();
                     return RedirectToAction("Index");
-
                 }
 
              
