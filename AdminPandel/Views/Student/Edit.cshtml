@@ -1,0 +1,61 @@
+﻿@model Student
+@{
+    ViewBag.Title = "Shto Student";
+    var id = 5;
+}
+<div class="container p-5">
+    <div class="col-6 offset-3">
+        <form asp-controller="Student" asp-action="Edit" method="post">
+            @*<input asp-for="Id" hidden="hidden" value="@id"/>*@
+            <div asp-validation-summary=ModelOnly class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FirstName" class="form-label">Emri</label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="LastName" class="form-label">Mbiemri</label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Age" class="form-label">Mosha</label>
+                <input asp-for="Age" class="form-control">
+                <span asp-validation-for="Age" class="text-danger"></span>
+
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Address" class="form-label">Adresa</label>
+                <input asp-for="Address" class="form-control">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+
+                <label asp-for="StatusiStudentit" class="form-label">Statusi</label>
+                <select asp-for="StatusiStudentit" asp-items="Html.GetEnumSelectList<StudentStatus>()" class="form-control"></select>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Ndrysho</button>
+            </div>
+            <div>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+

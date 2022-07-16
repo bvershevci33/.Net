@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProfStudentName>
+
+@if (@Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Profesori</th>
+                            <th scope="col">Studenti</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.ProfesorName</th>
+                                <td>@item.StudentName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12">
+                <a class="btn btn-primary" asp-controller="Student" asp-action="Index">Lista e Studenteve</a>
+            </div>
+
+        </div>
+
+    </div>
+}
+else
+{
+    <h3>Studenti me Id e dhene nuk ekziston.</h3>
+}

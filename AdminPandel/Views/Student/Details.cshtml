@@ -1,0 +1,37 @@
+﻿
+@model StudentVm
+
+@if (@Model != null)
+{
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Studenti
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@($"{Model.FirstName} {Model.LastName}") </h5>
+                    <p class="card-text">@Model.Address</p>
+                    <p class="card-text">@Model.Age</p>
+                    <p class="card-text">@Model.StatusiStudentit</p>
+                    <img src="@Model.Basae64Img" class="rounded float-start" alt="..." width="30" height="30" asp-append-version=true>
+                 
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-12">
+            <a class="btn btn-primary" asp-controller="Student" asp-action="Index">Lista e Studenteve</a>
+        </div>
+
+    </div>
+
+    </div>
+}
+else
+{
+    <h3>Studenti me Id e dhene nuk ekziston.</h3>    
+}

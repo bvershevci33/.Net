@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Profesor>
+@{
+    ViewBag.Title = "Profesoret";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a asp-controller="Profesor" asp-action="Create" class="btn btn-primary">Shto</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nr</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Paga</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var profesor in Model)
+                    {
+                        <tr>
+                            <th scope="row">@profesor.Id</th>
+                            <td>@profesor.FirstName</td>
+                            <td>@profesor.LastName</td>
+                            <td>@profesor.PagaNeto</td>
+                            <td>
+                                <a asp-controller="Profesor" asp-action="Details" asp-route-id="@profesor.Id">Details</a>
+                                <a asp-controller="Profesor" asp-action="Edit" asp-route-id="@profesor.Id">Edit</a>
+                                <a asp-controller="Profesor" asp-action="Delete" asp-route-id="@profesor.Id">Delete</a>
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
