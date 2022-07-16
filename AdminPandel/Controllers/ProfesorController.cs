@@ -1,17 +1,13 @@
 ﻿using AdminPandel.Models;
 using AdminPandel.ViewModels;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace AdminPandel.Controllers
 {
@@ -224,9 +220,9 @@ namespace AdminPandel.Controllers
                     return x % 2 == 0;
                 })
                 .Select(n =>
-               {
-                   return n * 3;
-               });
+                {
+                    return n * 3;
+                });
 
             foreach (var no in getNo)
             {
