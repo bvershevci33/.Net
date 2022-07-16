@@ -2,43 +2,59 @@
 @{
     ViewBag.Title = "Profesoret";
 }
-<div class="container p-5">
+<div class="container p-3">
     <div class="row">
-        <div class="col-md-6 offset-3">
-            <a asp-controller="Course" asp-action="Create" class="btn btn-primary">Shto</a>
-        </div>
-
-        <div class="col-md-3">
-          <h3>Numri i Kurseve: @ViewData["CoursesCount"]</h3>
+        <div class="col-md-3 offset-2">
+            <div class="card">
+                <a asp-controller="Course" asp-action="Create" class="btn btn-primary">Shto</a>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 offset-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Nr</th>
-                        <th scope="col">Course Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var course in Model)
-                    {
-                        <tr>
-                            <th scope="row">@course.CourseId</th>
-                            <td>@course.CourseName</td>
-                            <td>
-                                <a asp-controller="Course" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
-                                <a asp-controller="Course" asp-action="Edit" asp-route-courseId="@course.CourseId">Edit</a>
-                                <a asp-controller="Course" asp-action="Delete" asp-route-courseId="@course.CourseId">Delete</a>
-                            </td>
+        <div class="col-md-8 offset-2">
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-header-tabs px-1 float-end">Numri i Kurseve: @ViewData["CoursesCount"]</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr</th>
+                                    <th scope="col">Course Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var course in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@course.CourseId</th>
+                                        <td>@course.CourseName</td>
+                                        <td class="text-center">
+                                            <a class="p-1" asp-controller="Course" asp-action="Details" asp-route-courseId="@course.CourseId"><i class="bi bi-card-list"></i></a>
+                                            <a class="p-1" asp-controller="Course" asp-action="Edit" asp-route-courseId="@course.CourseId"><i class="bi bi-pencil"></i></a>
+                                            <a class="p-1" asp-controller="Course" asp-action="Delete" asp-route-courseId="@course.CourseId"><i class="bi bi-trash"></i></a>
+                                        </td>
 
 
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Per te shtuar nje kurs klikoni mbi butonin Shto</h5>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -4,41 +4,62 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <a asp-controller="Profesor" asp-action="Create" class="btn btn-primary">Shto</a>
+        <div class="col-md-3">
+            <div class="card">
+                <a asp-controller="Profesor" asp-action="Create" class="btn btn-primary">Shto</a>
+
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Nr</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Paga</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var profesor in Model)
-                    {
-                        <tr>
-                            <th scope="row">@profesor.Id</th>
-                            <td>@profesor.FirstName</td>
-                            <td>@profesor.LastName</td>
-                            <td>@profesor.PagaNeto</td>
-                            <td>
-                                <a asp-controller="Profesor" asp-action="Details" asp-route-id="@profesor.Id">Details</a>
-                                <a asp-controller="Profesor" asp-action="Edit" asp-route-id="@profesor.Id">Edit</a>
-                                <a asp-controller="Profesor" asp-action="Delete" asp-route-id="@profesor.Id">Delete</a>
-                            </td>
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Lista me Profesor</h5>
 
 
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Paga</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var profesor in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@profesor.Id</th>
+                                        <td>@profesor.FirstName</td>
+                                        <td>@profesor.LastName</td>
+                                        <td>@profesor.PagaNeto</td>
+                                        <td class="text-center">
+                                            <a class="p-1" asp-controller="Profesor" asp-action="Details" asp-route-id="@profesor.Id"><i class="bi bi-card-list"></i></a>
+                                            <a class="p-1" asp-controller="Profesor" asp-action="Edit" asp-route-id="@profesor.Id"><i class="bi bi-pencil"></i></a>
+                                            <a class="p-1" asp-controller="Profesor" asp-action="Delete" asp-route-id="@profesor.Id"><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Per te shtuar profesor te rinje klikoni mbi butonin Shto</h5>
+                    </div>
+                </div>
+
+            }
         </div>
     </div>
 </div>

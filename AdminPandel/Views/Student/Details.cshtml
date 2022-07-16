@@ -3,33 +3,34 @@
 
 @if (@Model != null)
 {
-    <div class="container">
+<div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
+        <div class="col-md-4 offset-4">
+            <div class="card text-center">
                 <div class="card-header">
                     Studenti
                 </div>
-                <div class="card-body">
+                <div class="card-body p-1">
+                    <img src="@Model.Basae64Img" class="rounded-circle img-fluid" alt="Student Img" width="100" height="100" asp-append-version=true>
+
                     <h5 class="card-title">@($"{Model.FirstName} {Model.LastName}") </h5>
                     <p class="card-text">@Model.Address</p>
                     <p class="card-text">@Model.Age</p>
                     <p class="card-text">@Model.StatusiStudentit</p>
-                    <img src="@Model.Basae64Img" class="rounded float-start" alt="..." width="30" height="30" asp-append-version=true>
-                 
+
                 </div>
             </div>
 
 
 
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4 offset-4 d-grid">
             <a class="btn btn-primary" asp-controller="Student" asp-action="Index">Lista e Studenteve</a>
         </div>
 
     </div>
 
-    </div>
+</div>
 }
 else
 {

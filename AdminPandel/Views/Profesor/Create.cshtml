@@ -3,8 +3,8 @@
     ViewBag.Title = "Shto Profesor";
     var listCourse = ViewData["Courses"] as SelectList;
 }
-<div class="container p-5">
-    <div class="col-6 offset-3">
+<div class="container">
+    <div class="col-8 offset-2">
         <div class="card">
             <div class="card-body">
 
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="Images" class="form-label">Id Foto</label>
+                        <label asp-for="Images" class="form-label">ID Foto</label>
                         <input asp-for="Images" class="form-control" multiple>
                         <span asp-validation-for="Images" class="text-danger"></span>
                     </div>
@@ -61,29 +61,18 @@
                         </div>
                     *@
 
-
-
-
-
-                    <div class="mb-3">
-                        <button class="btn btn-primary" type="submit">Shto Profesor</button>
-                    </div>
-                    <div>
-                    </div>
-
-
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Shto Profesor</button>
+                    <button class="btn btn-outline-primary float-end" asp-controller="Profesor" asp-action="Index">Kthehu tek Lista</button>
+                </div>
                 </form>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
 
 

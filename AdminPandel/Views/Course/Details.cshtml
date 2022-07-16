@@ -3,29 +3,26 @@
 
 @if (@Model != null)
 {
-    <div class="container">
+<div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
+        <div class="col-md-4 offset-4">
+            <div class="card text-center">
                 <div class="card-header">
                     Kursi
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">@Model.CourseId </h5>             
-                     <p class="card-text">@Model.CourseName </p>             
+                    <h5 class="card-title">@Model.CourseId </h5>
+                    <p class="card-text">@Model.CourseName </p>
                 </div>
             </div>
-
-
-
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4 offset-4 d-grid">
             <a class="btn btn-primary" asp-controller="Course" asp-action="Index">Lista e Kurseve</a>
         </div>
 
     </div>
 
-    </div>
+</div>
 }
 else
 {

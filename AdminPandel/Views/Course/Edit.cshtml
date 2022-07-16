@@ -4,31 +4,34 @@
 }
 <div class="container p-5">
     <div class="col-6 offset-3">
-        <form asp-controller="Course" asp-action="Edit" method="post">
-            <input asp-for="CourseId" hidden="hidden" value="@Model.CourseId"/>
-            <div asp-validation-summary=ModelOnly class="text-danger"></div>
+        <div class="card">
+            <div class="card-body">
 
-            <div class="form-group mb-3">
-                <label asp-for="CourseName" class="form-label">Emri</label>
-                <input asp-for="CourseName" class="form-control">
-                <span asp-validation-for="CourseName" class="text-danger"></span>
+                <h5 class="card-title">Ndrysho te dhenat per kursin</h5>
+
+                <form asp-controller="Course" asp-action="Edit" method="post">
+                    <input asp-for="CourseId" hidden="hidden" value="@Model.CourseId" />
+                    <div asp-validation-summary=ModelOnly class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CourseName" class="form-label">Emri</label>
+                        <input asp-for="CourseName" class="form-control">
+                        <span asp-validation-for="CourseName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-primary" type="submit">Ndrysho</button>
+                        <button class="btn btn-outline-primary float-end" asp-controller="Course" asp-action="Index">Kthehu tek Lista</button>
+                    </div>
+                </form>
             </div>
-           
-
-            <div class="mb-3">
-                <button class="btn btn-primary" type="submit">Ndrysho</button>
-            </div>
-            <div>
-            </div>
-
-
-        </form>
+        </div>
     </div>
 
 </div>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
 
 

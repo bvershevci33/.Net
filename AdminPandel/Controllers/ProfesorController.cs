@@ -49,6 +49,8 @@ namespace AdminPandel.Controllers
                 if (profVm.Images.Count > 2)
                 {
                     ModelState.AddModelError("Images", "Vetem dy foto jane te lejuara per ngarkim");
+                    var courses = Context.Courses.ToList();
+                    ViewData["Courses"] = new SelectList(courses, "CourseId", "CourseName");
                     return View(profVm);
                 }
 

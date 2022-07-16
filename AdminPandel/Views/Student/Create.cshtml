@@ -5,84 +5,86 @@
     var selectList = TempData["Profesors"] as SelectList;
     var listCourse = TempData["Courses"] as SelectList;
 }
-<div class="container p-5">
-    <div class="col-6 offset-3">
-        <form asp-controller="Student" asp-action="Create" method="post" enctype="multipart/form-data">
-            @*<input asp-for="Id" hidden="hidden" value="@id"/>*@
-            <div asp-validation-summary=ModelOnly class="text-danger"></div>
+<div class="container">
+    <div class="col-8 offset-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Shto Student</h5>
+                <form asp-controller="Student" asp-action="Create" method="post" enctype="multipart/form-data">
+                    @*<input asp-for="Id" hidden="hidden" value="@id"/>*@
+                    <div asp-validation-summary=ModelOnly class="text-danger"></div>
 
-            <div class="form-group mb-3">
-                <label asp-for="FirstName" class="form-label">Emri</label>
-                <input asp-for="FirstName" class="form-control">
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <div class="form-group mb-3">
+                        <label asp-for="FirstName" class="form-label">Emri</label>
+                        <input asp-for="FirstName" class="form-control">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="LastName" class="form-label">Mbiemri</label>
+                        <input asp-for="LastName" class="form-control">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Age" class="form-label">Mosha</label>
+                        <input asp-for="Age" class="form-control">
+                        <span asp-validation-for="Age" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Address" class="form-label">Adresa</label>
+                        <input asp-for="Address" class="form-control">
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+
+                        <label asp-for="StatusiStudentit" class="form-label">Statusi</label>
+                        <select asp-for="StatusiStudentit" asp-items="Html.GetEnumSelectList<StudentStatus>()" class="form-select">
+                            <option value="">-- Zgjedh Statusin --</option>
+                        </select>
+                        <span asp-validation-for="StatusiStudentit" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+
+                        <label asp-for="ProfesorId" class="form-label">Zgjedh Profesorin</label>
+                        <select asp-for="ProfesorId" asp-items="@Model.Profesors" class="form-select">
+                            <option value="">-- Zgjedh Profesorin --</option>
+                        </select>
+                        <span asp-validation-for="ProfesorId" class="text-danger"></span>
+                    </div>
+
+                    @* <div class="form-group mb-3">
+
+                        <label asp-for="CourseId" class="form-label">Zgjedh Kursin</label>
+                        <select asp-for="CourseId" asp-items="@Model.Courses" class="form-select">
+                        <option value="">-- Zgjedh Kursin --</option>
+                        </select>
+                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                        </div>*@
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Photo" class="form-label">Zgjedh Foton</label>
+                        <input asp-for="Photo" class="form-control">
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <button class="btn btn-primary" type="submit">Shto Student</button>
+                        <button class="btn btn-outline-primary float-end" asp-controller="Student" asp-action="Index">Kthehu tek Lista</button>
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="LastName" class="form-label">Mbiemri</label>
-                <input asp-for="LastName" class="form-control">
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Age" class="form-label">Mosha</label>
-                <input asp-for="Age" class="form-control">
-                <span asp-validation-for="Age" class="text-danger"></span>
-
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Address" class="form-label">Adresa</label>
-                <input asp-for="Address" class="form-control">
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-
-                <label asp-for="StatusiStudentit" class="form-label">Statusi</label>
-                <select asp-for="StatusiStudentit" asp-items="Html.GetEnumSelectList<StudentStatus>()" class="form-select">
-                    <option value="">-- Zgjedh Statusin --</option>
-                </select>
-                <span asp-validation-for="StatusiStudentit" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-
-                <label asp-for="ProfesorId" class="form-label">Zgjedh Profesorin</label>
-                <select asp-for="ProfesorId" asp-items="@Model.Profesors" class="form-select">
-                    <option value="">-- Zgjedh Profesorin --</option>
-                </select>
-                <span asp-validation-for="ProfesorId" class="text-danger"></span>
-            </div>
-
-            @* <div class="form-group mb-3">
-
-                <label asp-for="CourseId" class="form-label">Zgjedh Kursin</label>
-                <select asp-for="CourseId" asp-items="@Model.Courses" class="form-select">
-                <option value="">-- Zgjedh Kursin --</option>
-                </select>
-                <span asp-validation-for="CourseId" class="text-danger"></span>
-                </div>*@
-
-              <div class="form-group mb-3">
-                <label asp-for="Photo" class="form-label">Zgjedh Foton</label>
-                <input asp-for="Photo" class="form-control">
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-
-
-            <div class="mb-3">
-                <button class="btn btn-primary" type="submit">Shto Student</button>
-            </div>
-            <div>
-            </div>
-
-
-        </form>
+        </div>
     </div>
 
 </div>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
 
 

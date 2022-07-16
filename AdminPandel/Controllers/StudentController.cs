@@ -136,6 +136,7 @@ namespace AdminPandel.Controllers
 
                 studentVm.FirstName = getStudentById.FirstName;
                 studentVm.LastName = getStudentById.LastName;
+                studentVm.Address = getStudentById.Address;
                 studentVm.Age = getStudentById.Age;
                 studentVm.StatusiStudentit = getStudentById.StatusiStudentit;
                 studentVm.Basae64Img = finalBase64Img;

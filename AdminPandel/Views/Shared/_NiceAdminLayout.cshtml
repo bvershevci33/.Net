@@ -43,7 +43,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a asp-controller="home" asp-action="Index" class="logo d-flex align-items-center">
                 <img src="nice-admin/img/logo.png" alt="">
                 <span class="d-none d-lg-block">PBCA</span>
             </a>
@@ -273,7 +273,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " asp-controller="Home" asp-action="Index">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -281,7 +281,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-house-door"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -289,18 +289,14 @@
                             <i class="bi bi-circle"></i><span>Home</span>
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="Privacy">
-                            <i class="bi bi-circle"></i><span>Privacy</span>
-                        </a>
-                    </li>
+                 
 
                 </ul>
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-journal-text"></i><span>Studentet</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-mortarboard"></i><span>Studentet</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -324,7 +320,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-prof" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Profesori</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-journal-text"></i><span>Profesori</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-prof" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -345,7 +341,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-kurs" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Kurset</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-book"></i><span>Kurset</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-kurs" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
