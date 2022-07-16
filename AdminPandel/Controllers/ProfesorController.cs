@@ -24,7 +24,6 @@ namespace AdminPandel.Controllers
         }
         public IActionResult Index()
         {
-
             return View(Context.Profesors.ToList());
         }
 
@@ -36,10 +35,6 @@ namespace AdminPandel.Controllers
 
             ViewData["Courses"] = new SelectList(courses, "CourseId", "CourseName");
 
-
-            var jsonData = System.IO.File.ReadAllText("profesori.json");
-
-            var profesor = JsonSerializer.Deserialize<Profesor>(jsonData);
             return View();
         }
         [HttpPost]
@@ -75,7 +70,6 @@ namespace AdminPandel.Controllers
                     profVm.Image.CopyTo(fileStream);
                 }
 
-
                 List<PersonImg> PersonImgs = new();
 
                 foreach (var imgf in profVm.Images)
@@ -89,9 +83,6 @@ namespace AdminPandel.Controllers
                     PersonImgs.Add(new PersonImg() { Path = fileNamef });
 
                 }
-
-
-
 
                 var prof = new Profesor()
                 {
@@ -163,7 +154,6 @@ namespace AdminPandel.Controllers
                 getProfById.PagaNeto = editProf.PagaNeto;
                 getProfById.CourseId = editProf.CourseId;
 
-
                 Context.SaveChanges();
 
                 var profesors = Context.Profesors.ToList();
@@ -183,17 +173,6 @@ namespace AdminPandel.Controllers
             if (id != null || id != 0)
             {
 
-                IQueryable<Profesor> query = Context.Profesors.Where(x => x.PagaNeto > 100);
-                if (id == 6)
-                    query = Context.Profesors.Where(x => x.CourseId == 3);
-                else
-                    query = Context.Profesors.Where(x => x.CourseId == 1);
-
-
-
-
-                var resultIQ = query.FirstOrDefault();
-
                 var result = Context.Profesors.Where(x => x.Id == id).FirstOrDefault();
 
                 Context.Profesors.Remove(result);
@@ -208,6 +187,34 @@ namespace AdminPandel.Controllers
             var prof = Context.Profesors.ToList();
 
             return RedirectToAction("Index", prof);
+        }
+
+        #region Koncepte shtese
+
+
+        public Profesor IQueryableExample(int id)
+        {
+            // IQueryable vs IEnumerable
+            IQueryable<Profesor> query = Context.Profesors.Where(x => x.PagaNeto > 100);
+            if (id == 6)
+                query = Context.Profesors.Where(x => x.CourseId == 3);
+            else
+                query = Context.Profesors.Where(x => x.CourseId == 1);
+
+            var resultIQ = query.FirstOrDefault();
+            return resultIQ;
+        }
+
+        public Profesor JsonDeserializeExample()
+        {
+            // Get Data from Json File
+
+            // Convert JSON to string
+            var jsonData = System.IO.File.ReadAllText("profesori.json");
+            // Deserialize JSON string to object
+            var profesor = JsonSerializer.Deserialize<Profesor>(jsonData);
+
+            return profesor;
         }
 
         public List<int> LinqExampe()
@@ -243,7 +250,7 @@ namespace AdminPandel.Controllers
             }
 
         }
-
+        #endregion
 
     }
 }
