@@ -263,7 +263,7 @@
                                         <i class="bi bi-box-arrow-right"></i>
                                         <span>Sign Out</span>
                                     </button>
-                                 </form>
+                                </form>
                             </li>
 
                         </ul><!-- End Profile Dropdown Items -->
@@ -274,16 +274,17 @@
         }
         else
         {
-          
-                <a class="nav-link" asp-controller="Account" asp-action="Register">
-                    <span>Regjistrohu</span>
-                </a>
 
-                <a class="nav-link" asp-controller="Account" asp-action="Login">
-                    <span>Kyçu</span>
-                </a>
+            <ul class="d-flex list-unstyled mb-0 ms-auto">
+                <li class="nav-item align-items-center">
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+                <li class="nav-item align-items-center">
+                    <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+            </ul>
 
-          
+
 
         }
 
