@@ -33,8 +33,13 @@ namespace AdminPandel
                     options.UseSqlServer(Configuration.GetConnectionString("DashBoardConnection"));
                 });
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<DashboardDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+            {
+                option.Password.RequiredLength = 3;
+                option.Password.RequireDigit = false;
+                option.Password.RequireUppercase = false;
+            }) 
+            .AddEntityFrameworkStores<DashboardDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

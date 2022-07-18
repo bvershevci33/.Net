@@ -1,5 +1,6 @@
 ﻿using AdminPandel.Models;
 using AdminPandel.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using System.Text.Json;
 
 namespace AdminPandel.Controllers
 {
+    [Authorize]
     public class ProfesorController : Controller
     {
 

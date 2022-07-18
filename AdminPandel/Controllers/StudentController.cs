@@ -1,5 +1,6 @@
 ﻿using AdminPandel.Models;
 using AdminPandel.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AdminPandel.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         public StudentController(DashboardDbContext context)

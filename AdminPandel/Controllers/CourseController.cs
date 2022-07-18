@@ -1,9 +1,11 @@
 ﻿using AdminPandel.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace AdminPandel.Controllers
 {
+    [Authorize]
     public class CourseController : Controller
     {
         public DashboardDbContext Context { get; }
