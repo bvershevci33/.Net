@@ -4,14 +4,16 @@ using AdminPandel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdminPandel.Migrations
 {
     [DbContext(typeof(DashboardDbContext))]
-    partial class DashboardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220718151716_Add Custom Identity")]
+    partial class AddCustomIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,16 +46,6 @@ namespace AdminPandel.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FristName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -183,15 +175,10 @@ namespace AdminPandel.Migrations
                     b.Property<decimal>("PagaNeto")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Profesors");
                 });
@@ -235,9 +222,6 @@ namespace AdminPandel.Migrations
                     b.Property<int?>("StudentCoursesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Course1CourseId");
@@ -245,8 +229,6 @@ namespace AdminPandel.Migrations
                     b.HasIndex("ProfesorId");
 
                     b.HasIndex("StudentCoursesId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Students");
                 });
@@ -444,13 +426,7 @@ namespace AdminPandel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AdminPandel.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Course");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AdminPandel.Models.Student", b =>
@@ -469,13 +445,7 @@ namespace AdminPandel.Migrations
                         .WithMany("Students")
                         .HasForeignKey("StudentCoursesId");
 
-                    b.HasOne("AdminPandel.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Profesor");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CourseStudent", b =>

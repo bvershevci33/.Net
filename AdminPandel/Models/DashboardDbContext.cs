@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdminPandel.Models
 {
-    public class DashboardDbContext :DbContext
+    public class DashboardDbContext :IdentityDbContext<ApplicationUser>
     {
         public DashboardDbContext(DbContextOptions options) : base(options)
         {

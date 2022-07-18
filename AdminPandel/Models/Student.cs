@@ -40,11 +40,8 @@ namespace AdminPandel.Models
 
         public List<Course> Courses { get; set; }
 
-            
-
-
-
-
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
 
     }
 

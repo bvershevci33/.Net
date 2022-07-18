@@ -37,6 +37,9 @@ namespace AdminPandel.Models
 
         public List<PersonImg> PersonImgs { get; set; }
 
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
+
 
     }
 }
