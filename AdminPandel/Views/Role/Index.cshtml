@@ -1,0 +1,62 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewBag.Title = "Profesoret";
+    var i = 1;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <a asp-controller="Role" asp-action="Create" class="btn btn-primary">Shto</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Lista me Role</h5>
+
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr</th>
+                                    <th scope="col">Role Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@(i++)</th>
+                                        <td>@role.Name</td>
+                                        <td class="text-center">
+                                            <a class="p-1" asp-controller="Role" asp-action="Details" asp-route-id="@role.Id"><i class="bi bi-card-list"></i></a>
+                                            <a class="p-1" asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id"><i class="bi bi-pencil"></i></a>
+                                            <a class="p-1" asp-controller="Role" asp-action="Delete" asp-route-id="@role.Id"><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Per te shtuar Rol te rinje klikoni mbi butonin Shto</h5>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

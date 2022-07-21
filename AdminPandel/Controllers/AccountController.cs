@@ -1,5 +1,6 @@
 ﻿using AdminPandel.Models;
 using AdminPandel.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -72,6 +73,7 @@ namespace AdminPandel.Controllers
 
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(identityUser, "Owner");
                     await SignInManager.SignInAsync(identityUser, false);
 
                     return RedirectToAction("Index", "Home");
@@ -93,6 +95,14 @@ namespace AdminPandel.Controllers
             await SignInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> AccessDenied()
+        {
+
+            return View();
         }
     }
 }

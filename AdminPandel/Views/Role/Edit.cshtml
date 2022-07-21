@@ -1,0 +1,39 @@
+﻿@model IdentityRole
+@{
+    ViewBag.Title = "Shto Profesor";
+    var listCourse = ViewData["Courses"] as SelectList;
+}
+<div class="container">
+    <div class="col-8 offset-2">
+        <div class="card">
+            <div class="card-body">
+
+                <h5 class="card-title">Edit Role</h5>
+
+                <form asp-controller="Role" asp-action="Edit" method="post">
+                    <div asp-validation-summary=ModelOnly class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label">Role</label>
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>                   
+
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Edit Role</button>
+                    <button class="btn btn-outline-primary float-end" asp-controller="Role" asp-action="Index">Kthehu tek Lista</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
