@@ -9,7 +9,8 @@ namespace AdminPandel.Utilities
     {
         public static bool IsNullOrDefault<T>(this T inObj)
         {
-            if (inObj == null) return true;
+            if (inObj == null) 
+                return true;
             return EqualityComparer<T>.Default.Equals(inObj, default);
         }
     }

@@ -3,6 +3,16 @@
     ViewBag.Title = "Profesoret";
     var i = 1;
 }
+<style>
+    .delete-form {
+        display:inline;
+    }
+    .delete-form button {
+        border:none;
+        background-color:transparent;
+        color: red;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -39,7 +49,11 @@
                                         <td class="text-center">
                                             <a class="p-1" asp-controller="Role" asp-action="Details" asp-route-id="@role.Id"><i class="bi bi-card-list"></i></a>
                                             <a class="p-1" asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id"><i class="bi bi-pencil"></i></a>
-                                            <a class="p-1" asp-controller="Role" asp-action="Delete" asp-route-id="@role.Id"><i class="bi bi-trash"></i></a>
+                                            <form asp-action="Delete" asp-route-id="@role.Id" method="post" class="delete-form">
+                                                <button class="p-1"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                            <a class="p-1" asp-controller="Role" asp-action="GetUsersByRoleName" asp-route-roleName="@role.Name"><i class="bi bi-person-lines-fill"></i></a>
+
                                         </td>
                                     </tr>
                                 }
