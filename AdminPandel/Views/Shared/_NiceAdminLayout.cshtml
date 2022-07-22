@@ -390,31 +390,31 @@
 
                 </ul>
             </li><!-- End Components Nav -->
-            @if (User.IsInRole("SuperAdmin"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#components-role" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-diagram-2"></i><span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="components-role" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a asp-controller="Role" asp-action="Index">
-                                <i class="bi bi-circle"></i><span>Lista me Role</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Role" asp-action="Create">
-                                <i class="bi bi-circle"></i><span>Shto Rol te ri</span>
-                            </a>
-                        </li>
+            @*@if (User.IsInRole("SuperAdmin"))
+        {*@
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-role" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-diagram-2"></i><span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-role" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Role" asp-action="Index">
+                            <i class="bi bi-circle"></i><span>Lista me Role</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Role" asp-action="Create">
+                            <i class="bi bi-circle"></i><span>Shto Rol te ri</span>
+                        </a>
+                    </li>
 
 
 
-                    </ul>
-                </li>
+                </ul>
+            </li>
 
-                <!-- End Components Nav -->
-            }
+            <!-- End Components Nav -->
+            @*  }*@
 
 
 

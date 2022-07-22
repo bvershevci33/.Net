@@ -1,0 +1,33 @@
+﻿
+@model IdentityRole
+
+
+@if (@Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-4">
+                <div class="card text-center">
+                    <div class="card-header">
+
+                        <h3 class="mb-0">Roli</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Id </h5>
+                        <p class="card-text">@Model.Name</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 offset-4 d-grid">
+                <a class="btn btn-primary btn-block" asp-controller="Role" asp-action="Index">Lista e Role</a>
+            </div>
+
+        </div>
+
+    </div>
+}
+else
+{
+    <h3>Roli me Id e dhene nuk ekziston.</h3>
+}

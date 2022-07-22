@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AdminPandel.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -73,9 +74,16 @@ namespace AdminPandel.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int? a)
+        public async Task<IActionResult> Details(string id)
         {
+            if (id.IsNullOrDefault())
+            {
+                var identityRole = await RoleManager.FindByIdAsync(id);
+                return View(identityRole);
+
+            }
             return View();
+          
         }
 
         [HttpPost]
