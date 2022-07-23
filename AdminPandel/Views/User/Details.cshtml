@@ -1,0 +1,37 @@
+﻿
+@model ApplicationUser
+
+
+@if (@Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-4">
+                <div class="card text-center">
+                    <div class="card-header">
+
+                        <h3 class="mb-0">Perdoruesi</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.UserName</h5>
+                        <p class="card-text">@Model.FristName</p>
+                        <p class="card-text">@Model.LastName</p>
+                        <p class="card-text">@Model.Address</p>
+                        <p class="card-text">@Model.BirthDay</p>
+                        <p class="card-text">@Model.Email</p>
+                        <p class="card-text">@ViewBag.RoleName</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 offset-4 d-grid">
+                <a class="btn btn-primary btn-block" asp-action="Index">Lista e Perdoruesve</a>
+            </div>
+
+        </div>
+
+    </div>
+}
+else
+{
+    <h3>Perdoruesi me Id e dhene nuk ekziston.</h3>
+}

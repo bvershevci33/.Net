@@ -73,7 +73,7 @@ namespace AdminPandel.Controllers
 
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(identityUser, "Owner");
+                    await UserManager.AddToRoleAsync(identityUser, "Inspector");
                     await SignInManager.SignInAsync(identityUser, false);
 
                     return RedirectToAction("Index", "Home");

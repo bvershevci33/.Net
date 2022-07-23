@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,5 +39,10 @@ namespace AdminPandel.ViewModels
         [Compare("Password", ErrorMessage ="Password Propertia dhe Confirm Password nuk perputhen.")]
         [Display(Name ="Konfirmo Fjalekalimin")]
         public string ConfirmPassword { get; set; }
+
+        //[Required]
+        public SelectList Roles { get; set; }
+        //[Required]
+        public string RoleName { get; set; }
     }
 }

@@ -26,7 +26,7 @@
     <link href="~/nice-admin/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="~/nice-admin/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="~/nice-admin/vendor/simple-datatables/style.css" rel="stylesheet">
-
+    <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
     <!-- Template Main CSS File -->
     <link href="~/nice-admin/css/style.css" rel="stylesheet">
 
@@ -407,16 +407,29 @@
                                 <i class="bi bi-circle"></i><span>Shto Rol te ri</span>
                             </a>
                         </li>
-                        <li>
-                            <a asp-controller="Role" asp-action="AssignUserToRole">
-                                <i class="bi bi-circle"></i><span>Shto Rol te ri</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
                 <!-- End Components Nav -->
             }
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-user" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-people"></i><span>Perdoruesit</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="User" asp-action="Index">
+                            <i class="bi bi-circle"></i><span>Lista me Perdorues</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="User" asp-action="Create">
+                            <i class="bi bi-circle"></i><span>Shto Perdorues te ri</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
 
@@ -461,7 +474,7 @@
     <script src="~/nice-admin/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="~/nice-admin/vendor/tinymce/tinymce.min.js"></script>
     <script src="~/nice-admin/vendor/php-email-form/validate.js"></script>
-
+    <script src="~/lib/sweetalert2/dist/sweetalert2.js"></script>
     <!-- Template Main JS File -->
     <script src="~/nice-admin/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

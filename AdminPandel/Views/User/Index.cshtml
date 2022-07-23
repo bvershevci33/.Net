@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewBag.Title = "Perdoruesi";
+    var i = 1;
+}
+<style>
+    .delete-form {
+        display: inline;
+    }
+
+        .delete-form button {
+            border: none;
+            background-color: transparent;
+            color: red;
+        }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <a asp-action="Create" class="btn btn-primary">Shto</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Lista me Role</h5>
+
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr</th>
+                                    <th scope="col">Emri</th>
+                                    <th scope="col">Mbiemri</th>
+                                    <th scope="col">Perdoruesi</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@(i++)</th>
+                                        <td>@user.FristName</td>
+                                        <td>@user.LastName</td>
+                                        <td>@user.UserName</td>
+                                        <td class="text-center">
+                                            <a class="p-1" asp-action="Details" asp-route-id="@user.Id"><i class="bi bi-card-list"></i></a>
+                                            <a class="p-1" asp-action="Edit" asp-route-id="@user.Id"><i class="bi bi-pencil"></i></a>
+                                            <form asp-action="Delete" asp-route-id="@user.Id" method="post" class="delete-form">
+                                                <button class="p-1 custom-delete-button"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                            <a class="p-1" asp-action="GetUsersByRoleName" asp-route-roleName="@user.UserName"><i class="bi bi-person-lines-fill"></i></a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Per te shtuar Perdorues te ri klikoni mbi butonin Shto</h5>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/user-index.js"></script>}
+
