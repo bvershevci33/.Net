@@ -1,0 +1,55 @@
+﻿@model List<UserRolesVm>
+@{
+    ViewBag.Title = "Users in Role";
+    var i = 1;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <a asp-controller="User" asp-action="AssignRolesToUser" asp-route-userName="@ViewBag.UserName" class="btn btn-primary">Ndrysho</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Lista me rolet te userit @ViewBag.UserName</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr</th>
+                                    <th>Roli</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@(i++)</th>
+                                        <td>@role.RoleName</td>
+
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Nuk ka ndonje perdorues me kete rol.</h5>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

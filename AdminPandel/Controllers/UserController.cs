@@ -84,6 +84,35 @@ namespace AdminPandel.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id != null)
+            {
+                var result = await UserManager.FindByIdAsync(id);
+                return View(result);
+
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ApplicationUser model)
+        {
+            var result = await UserManager.FindByIdAsync(model.Id);
+
+            result.FristName = model.FristName;
+            result.LastName = model.LastName;
+            result.Address = model.Address;
+            result.Email = model.Email;
+            result.BirthDay = model.BirthDay;
+            result.PhoneNumber = model.PhoneNumber;
+
+
+            await UserManager.UpdateAsync(result);
+            return RedirectToAction("Index");
+        }
+
 
 
         // GET: UserController/Details/5
@@ -119,6 +148,101 @@ namespace AdminPandel.Controllers
             return RedirectToAction("Index");
         }
 
-      
+        public async Task<IActionResult> GetRolesByUser(string userName)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+            ViewBag.UserName = user.UserName;
+            var roles = await UserManager.GetRolesAsync(user);
+            List<UserRolesVm> usersRoleVm = new();
+            foreach (var role in roles)
+            {
+                usersRoleVm.Add(new UserRolesVm()
+                {
+                    
+                 
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    RoleName = role
+                });
+
+
+            }
+            return View(usersRoleVm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignRolesToUser(string userName)
+        {
+            if (!userName.IsNullOrDefault())
+            {
+                var user = await UserManager.FindByNameAsync(userName);
+                var roles = RoleManager.Roles.ToList();
+                List<AssignRoleToUser> roleUsers = new();
+                foreach (var role in roles)
+                {
+                    var roleToUser = new AssignRoleToUser()
+                    {
+                        UserName = user.UserName,
+                        RoleName = role.Name,
+                    };
+                    if (await UserManager.IsInRoleAsync(user, role.Name))
+                        roleToUser.IsInUser = true;
+                    roleUsers.Add(roleToUser);
+
+
+                }
+                return View(roleUsers);
+            }
+            return RedirectToAction("GetRolesByUser");
+
+        }
+
+        public async Task<IActionResult> AssignRolesToUser(List<AssignRoleToUser> assignRoleToUsers)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(assignRoleToUsers[0].UserName);
+                if (user.IsNullOrDefault())
+                {
+                    ModelState.AddModelError(string.Empty, $"Useri {user.UserName} nuk ekziston.");
+                    return View(assignRoleToUsers);
+                }
+                var i = 0;
+                foreach (var role in assignRoleToUsers)
+                {
+                    var userIdentity = await UserManager.FindByNameAsync(role.UserName);
+                    IdentityResult result = null;
+                    if (role.IsInUser && !(await UserManager.IsInRoleAsync(userIdentity, role.RoleName)))
+                        result = await UserManager.AddToRoleAsync(userIdentity, role.RoleName);
+                    else if (!role.IsInUser && (await UserManager.IsInRoleAsync(userIdentity, role.RoleName)))
+                        result = await UserManager.RemoveFromRoleAsync(userIdentity, role.RoleName);
+                    else
+                        continue;
+
+                    if (result.Succeeded)
+                    {
+                        if (i < (assignRoleToUsers.Count - 1))
+                            continue;
+                        else
+                            return RedirectToAction("GetRolesByUser", new { userName = user.UserName });
+                    }
+                    else
+                    {
+                        foreach (var err in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, err.Description);
+
+                        }
+                        return View(assignRoleToUsers);
+                    }
+
+                    i++;
+                }
+                return RedirectToAction("GetRolesByUser", new { userName = user.UserName });
+
+            }
+            return View(assignRoleToUsers);
+        }
+
     }
 }
