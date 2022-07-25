@@ -1,3 +1,4 @@
+using AdminPandel.AutoMapperProfile;
 using AdminPandel.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace AdminPandel
                 option.Password.RequireUppercase = false;
             }) 
             .AddEntityFrameworkStores<DashboardDbContext>();
+
+            services.AddAutoMapper(typeof(CustomProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

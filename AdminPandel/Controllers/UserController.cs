@@ -1,6 +1,7 @@
 ﻿using AdminPandel.Models;
 using AdminPandel.Utilities;
 using AdminPandel.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,15 @@ namespace AdminPandel.Controllers
     {
         public UserManager<ApplicationUser> UserManager { get; }
         public RoleManager<IdentityRole> RoleManager { get; }
+        public IMapper Mapper { get; }
 
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(UserManager<ApplicationUser> userManager, 
+                              RoleManager<IdentityRole> roleManager,
+                              IMapper mapper)
         {
             UserManager = userManager;
             RoleManager = roleManager;
+            Mapper = mapper;
         }
 
         // GET: UserController
@@ -33,6 +38,7 @@ namespace AdminPandel.Controllers
          [HttpGet]
         public IActionResult Create()
         {
+
           
             var result = RoleManager.Roles.OrderBy(r => r.Name).ToList();
             var model = new RegisterVm()
@@ -50,17 +56,18 @@ namespace AdminPandel.Controllers
      
             if (ModelState.IsValid)
             {
+                ApplicationUser identityUser = Mapper.Map<ApplicationUser>(model);
 
-                var identityUser = new ApplicationUser()
-                {
-                    FristName = model.FirstName,
-                    LastName = model.LastName,
-                    Address = model.Address,
-                    BirthDay = model.BirthDay,
-                    Email= model.Email,
-                    UserName = model.Email,
+                //var identityUser = new ApplicationUser()
+                //{
+                //    FristName = model.FirstName,
+                //    LastName = model.LastName,
+                //    Address = model.Address,
+                //    BirthDay = model.BirthDay,
+                //    Email= model.Email,
+                //    UserName = model.Email,
 
-                };
+                //};
 
                 IdentityResult result = await UserManager.CreateAsync(identityUser, model.Password);
 
