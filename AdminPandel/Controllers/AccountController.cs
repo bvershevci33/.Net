@@ -1,11 +1,9 @@
 ﻿using AdminPandel.Models;
+using AdminPandel.Services;
 using AdminPandel.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminPandel.Controllers
@@ -13,14 +11,17 @@ namespace AdminPandel.Controllers
     public class AccountController : Controller
     {
         public AccountController(UserManager<ApplicationUser> userManager,
-                                 SignInManager<ApplicationUser> signInManager)
+                                 SignInManager<ApplicationUser> signInManager,
+                                 IMailService mailService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            MailService = mailService;
         }
 
         public UserManager<ApplicationUser> UserManager { get; }
         public SignInManager<ApplicationUser> SignInManager { get; }
+        public IMailService MailService { get; }
 
         [HttpGet]
         public IActionResult Login()
@@ -33,6 +34,14 @@ namespace AdminPandel.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userIdentity = await UserManager.FindByEmailAsync(model.Email);
+                if (userIdentity != null 
+                    && !userIdentity.EmailConfirmed 
+                    && (await UserManager.CheckPasswordAsync(userIdentity, model.Password)))
+                {
+                    ModelState.AddModelError(string.Empty, "Emaili nuk eshte konfirmuar akoma.");
+                    return View(model);
+                }
 
                 var result = await SignInManager.PasswordSignInAsync(model.Email,model.Password,model.RememberMe,false);
                 if (result.Succeeded)
@@ -73,8 +82,28 @@ namespace AdminPandel.Controllers
 
                 if (result.Succeeded)
                 {
+                    var token = await UserManager.GenerateEmailConfirmationTokenAsync(identityUser);
+                    if (token == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Email Konfirmim Tokeni nuk eshte gjenerauar.");
+                        return View(model);
+                    }
+                    var baseUrl = "https://localhost:44370";
+                    var confimrEmailUrs = Url.Action("ConfirmEmail", "Account",new { userId = identityUser.Id, token = token });
+                    confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+
+                    // Send Email
+
+                    var emailReques = new MailRequest();
+                    emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
+                    emailReques.Body = confimrEmailUrs;
+                    emailReques.ToEmail = identityUser.Email;
+
+                    await MailService.SendEmailAsync(emailReques);
+                 
+
                     await UserManager.AddToRoleAsync(identityUser, "Inspector");
-                    await SignInManager.SignInAsync(identityUser, false);
+                    //await SignInManager.SignInAsync(identityUser, false);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -104,5 +133,28 @@ namespace AdminPandel.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token) 
+        {
+            if(userId == null  || token == null)
+            {
+                ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                return View();
+            }
+            var userIdentity = await UserManager.FindByIdAsync(userId);
+            var result = await UserManager.ConfirmEmailAsync(userIdentity, token);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ConfirmedEmail");
+            }
+            foreach (var err in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, err.Description);
+            }
+            return View();
+        }
+
+
     }
 }

@@ -71,14 +71,14 @@
                         </a>
                     </li><!-- End Search Icon-->
 
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
 
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-primary badge-number">4</span>
                         </a><!-- End Notification Icon -->
 
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                             <li class="dropdown-header">
                                 You have 4 new notifications
                                 <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -144,16 +144,16 @@
 
                         </ul><!-- End Notification Dropdown Items -->
 
-                    </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav -->
 
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
 
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number">3</span>
                         </a><!-- End Messages Icon -->
 
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                             <li class="dropdown-header">
                                 You have 3 new messages
                                 <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -210,16 +210,16 @@
 
                         </ul><!-- End Messages Dropdown Items -->
 
-                    </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav -->
 
-                    <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             <img src="~/nice-admin/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                             <span class="d-none d-md-block dropdown-toggle ps-2">@User.Identity.Name</span>
                         </a><!-- End Profile Iamge Icon -->
 
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
                                 <h6>@User.Identity.Name</h6>
                                 <span>Engineer</span>
@@ -268,9 +268,9 @@
                             </li>
 
                         </ul><!-- End Profile Dropdown Items -->
-                    </li><!-- End Profile Nav -->
+                </li><!-- End Profile Nav -->
 
-                </ul>
+            </ul>
             </nav>
 
             <!-- End Icons Navigation -->
@@ -390,8 +390,8 @@
 
                 </ul>
             </li><!-- End Components Nav -->
-           @* @if (User.IsInRole("SuperAdmin"))
-            {*@
+            @if(User.IsInRole("SuperAdmin"))
+            {
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#components-role" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-diagram-2"></i><span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -411,27 +411,27 @@
                 </li>
 
                 <!-- End Components Nav -->
-         @*   }*@
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-user" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people"></i><span>Perdoruesit</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a asp-controller="User" asp-action="Index">
-                            <i class="bi bi-circle"></i><span>Lista me Perdorues</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="User" asp-action="Create">
-                            <i class="bi bi-circle"></i><span>Shto Perdorues te ri</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#components-user" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-people"></i><span>Perdoruesit</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a asp-controller="User" asp-action="Index">
+                                <i class="bi bi-circle"></i><span>Lista me Perdorues</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="User" asp-action="Create">
+                                <i class="bi bi-circle"></i><span>Shto Perdorues te ri</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            }
 
 
 

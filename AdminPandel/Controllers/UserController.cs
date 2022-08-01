@@ -2,6 +2,7 @@
 using AdminPandel.Utilities;
 using AdminPandel.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AdminPandel.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class UserController : Controller
     {
         public UserManager<ApplicationUser> UserManager { get; }
@@ -107,6 +109,8 @@ namespace AdminPandel.Controllers
         public async Task<IActionResult> Edit(ApplicationUser model)
         {
             var result = await UserManager.FindByIdAsync(model.Id);
+
+            //var user= Mapper.Map<ApplicationUser>(model);
 
             result.FristName = model.FristName;
             result.LastName = model.LastName;

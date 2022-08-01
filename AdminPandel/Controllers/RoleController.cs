@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AdminPandel.Controllers
 {
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class RoleController : Controller
     {
         public RoleManager<IdentityRole> RoleManager { get; }

@@ -1,5 +1,7 @@
 using AdminPandel.AutoMapperProfile;
 using AdminPandel.Models;
+using AdminPandel.Services;
+using AdminPandel.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,10 +41,15 @@ namespace AdminPandel
                 option.Password.RequiredLength = 3;
                 option.Password.RequireDigit = false;
                 option.Password.RequireUppercase = false;
+                option.SignIn.RequireConfirmedEmail = true;
             }) 
-            .AddEntityFrameworkStores<DashboardDbContext>();
+            .AddEntityFrameworkStores<DashboardDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddAutoMapper(typeof(CustomProfile));
+            services.Configure<MailSettings>(Configuration.GetSection(MailSettings.SectionName));
+
+            services.AddTransient<IMailService, MailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
