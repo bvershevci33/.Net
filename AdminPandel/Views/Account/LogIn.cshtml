@@ -2,8 +2,13 @@
 @{
     ViewBag.Title = "Regjistrohu";
 }
+<style>
+    .btn-forgot-password:hover {
+        color:#0d6efd;
+    }
+</style>
 <div class="container">
-    <div class="col-8 offset-2">
+    <div class="col-4 offset-4">
         <div class="card">
             <div class="card-body">
 
@@ -35,10 +40,8 @@
                     </div>
 
 
-
-
-
                     <div class="mb-3">
+                        <a class="btn btn-default btn-forgot-password" asp-action="ForgotPassword">Kam harruar fjalekalimin?</a>
                         <button class="btn btn-primary" type="submit">Kyçu</button>
                     </div>
                 </form>
