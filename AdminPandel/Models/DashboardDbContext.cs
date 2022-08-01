@@ -18,8 +18,8 @@ namespace AdminPandel.Models
         public DbSet<Profesor> Profesors { get; set;}
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourses> StudentCourses { get; set; }
-
         public DbSet<PersonImg> PersonImgs { get; set; }
+        public DbSet<SpResult> SpResults { get; set; }
 
     }
 }

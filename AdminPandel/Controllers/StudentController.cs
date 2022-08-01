@@ -106,6 +106,24 @@ namespace AdminPandel.Controllers
                 // Ruajtja e file byte[] ne db
                 student.Photo = byteImg;
 
+                // Add to registred Course
+                var course = Context.Courses.Where(x => x.CourseId == 1).FirstOrDefault();
+                //student.Courses = new()
+                //{
+                //    course,
+                //};
+                // Or
+                student.Courses = new();
+                student.Courses.Add(course);
+
+                // Add Student to new Course
+                //student.Courses = new()
+                //{
+                //    new Course() {CourseName = "User Design" },
+                //};
+                //student.Courses = new();
+                //student.Courses.Add(new Course() { CourseName = "User Design" });
+
                 Context.Students.Add(student);
                 Context.SaveChanges();
 
@@ -211,13 +229,31 @@ namespace AdminPandel.Controllers
         #region Koncepte Shtese
         public IEnumerable<Student> LinqExampe()
         {
-            var sqlRaw1 = Context.Database.ExecuteSqlRaw("Select s.*, p.Emri from Students s inner join profesors p on p.id= s.profesorId");
-            var sqlRaw2 = Context.Students.FromSqlRaw(" Select *  from Students where id={0}", 7).ToList();
-            var sqlRaw3 = Context.Students.FromSqlInterpolated($" Select *  from Students where id={7}").ToList();
+            // Pass Param using string formatting
+            var sqlRaw1 = Context.Students.FromSqlRaw(" Select *  From Students where Id={0}", 1).ToList();
 
-            // Execute SP
-            var param = new SqlParameter("@FirstName", "Maxi");
-            var studentsSp = Context.Students.FromSqlRaw("GetStudents @FirstName", param).ToList();
+            // Execute SP with param
+            var param = new SqlParameter("@FirstName", "Dritan");
+            var studentsSp = Context.Students.FromSqlRaw(" Select *  From Students where FirstName Like {0}", param).ToList();
+
+            var sqlRaw2 = Context.Students.FromSqlInterpolated($" Select *  From Students where Id={1}").FirstOrDefault();
+
+            // Use ExecuteSql.. to perform Insert, Update, Delete , not for select
+            // ExecuteSql.. returns the number of rows affected for inserts, updates and deletes (-1 for selects).
+            var sqlRawWrong1 = Context.Database.ExecuteSqlRaw("Select s.*, p.Emri from Students s inner join profesors p on p.id= s.profesorId");
+            var sqlRawWrong2 = Context.Database.ExecuteSqlInterpolated($" Select *  from Students where id={1}"); //-1
+
+            // To get data from different tables or custom sp result
+            // Create Keyless Entity Type with Keyless atribute that represent resultset. See SpResult class
+            // Add a DbSet of custom class. See SpResults DbSet
+            // Add Migration but remove create table syntax from that migration
+            // Execute FromSql.. like below
+            // Don't forget to use AsEnumerable method
+
+            var spParam = new SqlParameter("@FirstName", "Drit");
+            var innerJoinResult = Context.SpResults.FromSqlInterpolated($"GetStudents {spParam}")
+                                                   .AsEnumerable()
+                                                   .FirstOrDefault();
 
             return studentsSp;
 
